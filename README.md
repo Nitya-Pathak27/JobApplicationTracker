@@ -71,6 +71,9 @@ JobApplicationTracker/
 └── .env (not included in repository)
 ```
 
+## 🎥 Project Demo
+https://github.com/user-attachments/assets/d4374233-a916-4cac-b778-d4919d665dc1
+
 ## ⚙️ Installation
 
 1. Clone the repository
