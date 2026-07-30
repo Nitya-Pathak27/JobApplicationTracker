@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}
+    Forget Password
+{% endblock %}
+
+{% block content %}
+    <div class = "form-container">
+        <h1 class = "form-heading">Forgot Password</h1>
+        <p class = "form-text">Lost your password, not your progress.</p>
+
+        <form class = "form" method = "POST" action = "{{ url_for('forgot_password') }}">
+            <!-- Email Input -->
+            <div class = "form-group">
+                <label for = "email" class = "form-label">Your email</label><br>
+                <input type = "email" id = "email" name = "email" class = "form-input" placeholder = "E-mail"><br><br>
+            </div>
+
+            <!-- Submit Button -->
+            <div class = "form-group">
+                <button type = "submit">Submit</button>
+            </div>
+        </form>
+
+        <p class = "form-text">
+            <a href = "{{ url_for('login_page') }}">BACK TO LOGIN</a>
+        </p>
+    </div>
+{% endblock %}

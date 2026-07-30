@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}
+    Home Page
+{% endblock %}
+
+{% block content %}
+    
+
+    <div class = "hero-section">
+        {% if session.get('user_id') %}
+            <p class = "welcome-text">Welcome, {{ session.get('user_name') }}</p>
+        {% endif %}
+        <h1 class = "big-heading">Build for <i>Your Job Journey.</i></h1>
+        <p class = "small-desc">Stop forgetting where you applied—track everthing and take control of your career.</p>
+        <a class = "btn" href = "{{ url_for('login_page') }}">Get Started</a>
+    </div>
+{% endblock %}

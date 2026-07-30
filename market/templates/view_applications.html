@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}
+    View Application
+{% endblock %}
+
+{% block content %}
+    <div class = "view-container">
+        <h1 class = "view-heading">Track every opportunity you've <i>Applied For</i></h1>
+        <p class = "view-desc">View, manage, and stay on top of every opportunity in one organized workspace.</p>
+
+        <!-- Search bar -->
+         <div class = "view-search">
+            <form method = "GET" class = "view-search-form" action = "{{ url_for('view_applications') }}">
+                <input type = "text" name = "company" class = "view-search-input" placeholder = "Search by company or role...">
+                <select name = "status" class = "view-status-filter">
+                    <option value = "">All Status</option>
+                    <option value = "applied">Applied</option>
+                    <option value = "interview_scheduled">Interview Scheduled</option>
+                    <option value = "selected">Selected</option>
+                    <option value = "rejected">Rejected</option>
+                </select>
+                <select name = "sort" class = "view-sort-filter">
+                    <option value = "">Sort By</option>
+                    <option value = "date_desc">Date (Newest)</option>
+                    <option value = "date_asc">Date (Oldest)</option>
+                    <option value = "company_az">Company A-Z</option>
+                    <option value = "company_za">Company Z-A</option>
+                </select>
+                <button type = "submit" class = "view-search-btn">Search</button>
+            </form>
+        </div>
+
+        <!-- Application card -->
+        {% if applications %}
+            {% for application in applications %}
+                <div class = "view-card">
+                    <div>
+                        <h2 class = "card-company">{{ application[1] }}</h2>
+                        <p class = "card-position">{{ application[2] }}</p>
+                        <p class = "card-date">{{ application[3] }}</p>
+                        <p class = "card-deadline">{{ application[4] }}</p>
+                        <p class = "card-status">{{ application[5] }}</p>
+                        <a href = "{{ application[6] }}" class = "card-link" target = "_blank">{{ application[6] }}</a>
+                        <a href = "{{ url_for('edit_application', application_id=application[0]) }}" class = "card-edit-btn"><i class="fa-solid fa-pen-to-square"></i></a>
+                        <a href = "{{ url_for('delete_application', application_id=application[0]) }}" class = "card-delete-btn"><i class="fa-solid fa-trash"></i></a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class = "empty-message">No applications added yet...</p>
+        {% endif %}
+    </div>
+{% endblock %}

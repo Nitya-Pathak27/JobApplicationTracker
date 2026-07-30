@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Add Application
+{% endblock %}
+
+{% block content %}
+    <div class = "add-form-container">
+        <h1 class = "add-form-heading">Add your next career Opportunity</h1>
+        <p class = "add-form-desc">Save job details, deadlines, and reminders all in one place.</p>
+
+        <div class = "add-form">
+            <form method = "POST" action = "{{ url_for('add_application') }}">
+                <div class = "add-form-group">
+                    <label for = "company" class = "add-form-label">Company</label>
+                    <input type = "text" id = "company" name = "company" class = "add-form-input" placeholder = "Company Name">
+                </div>
+                <div class = "add-form-group">
+                    <label for = "position" class = "add-form-label">Position</label>
+                    <input type = "text" id = "position" name = "position" class = "add-form-input" placeholder = "Position Title">
+                </div>
+                <div class = "add-form-group">
+                    <label for = "date" class = "add-form-label">Application Date</label>
+                    <input type = "date" id = "date" name = "date" class = "add-form-input">
+                </div>
+                <div class = "add-form-group">
+                    <label for = "deadline" class = "add-form-label">Application Deadline</label>
+                    <input type = "date" id = "deadline" name = "deadline" class = "add-form-input">
+                </div>
+                <div class = "add-form-group">
+                    <label for = "status" class = "add-form-label">Application Status</label>
+                    <select id = "status" name = "status" class = "add-form-input">
+                        <option value = "">Select Status</option>
+                        <option value = "applied">Applied</option>
+                        <option value = "interview_scheduled">Interview</option>
+                        <option value = "selected">Selected</option>
+                        <option value = "rejected">Rejected</option>
+                    </select>
+                </div>
+                <div class = "add-form-group">
+                    <label for = "job_link" class = "add-form-label">Job Link</label>
+                    <input type = "url" id = "job_link" name = "job_link" class = "add-form-input" placeholder = "https://example.com/job-posting">
+                </div>
+                <div class = "add-form-group">
+                    <button type = "submit" class = "add-form-btn">Add Application</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% block title %}
+    Dashboard
+{% endblock %}
+
+{% block content %}
+    <div class = "dashboard-container">
+        <h1 class = "dashboard-heading">Welcome, {{ user.name }}!</h1>
+        <p class = "dashboard-desc">Ready to turn today's applications into tomorrow's offers?</p>
+
+        <!-- Search Bar -->
+        <div class = "search-section">
+            <form method = "GET" class = "search-form" action = "{{ url_for('dashboard_page') }}">
+                <input type = "text" name = "company" class = "search-input" placeholder = "Search by company or role...">
+                <select name = "status" class = "status-filter">
+                    <option value = "">All Status</option>
+                    <option value = "applied">Applied</option>
+                    <option value = "interview_scheduled">Interview Scheduled</option>
+                    <option value = "selected">Selected</option>
+                    <option value = "rejected">Rejected</option>
+                </select>
+                <select name = "sort" class = "sort-filter">
+                    <option value = "">Sort By</option>
+                    <option value = "date_desc">Date (Newest)</option>
+                    <option value = "date_asc">Date (Oldest)</option>
+                    <option value = "company_az">Company A-Z</option>
+                    <option value = "company_za">Company Z-A</option>
+                </select>
+                <button type = "submit" class = "search-btn">Search</button>
+            </form>
+        </div>
+
+        <!-- Stat Cards -->
+        <div class = "stat-cards">
+            <div class = "stat-card">
+                <i class="fa-solid fa-briefcase stat-icon"></i>
+                <h3 class = "stat-title">Total Applications</h3>
+                <p class = "stat-value">{{ user.total_applications }}</p>
+            </div>
+            <div class = "stat-card">
+                <i class="fa-solid fa-paper-plane stat-icon"></i>
+                <h3 class = "stat-title">Applied</h3>
+                <p class = "stat-value">{{ user.applied }}</p>
+            </div>
+            <div class = "stat-card">
+                <i class="fa-solid fa-calendar-check stat-icon"></i>
+                <h3 class = "stat-title">Interview Scheduled</h3>
+                <p class = "stat-value">{{ user.interview_scheduled }}</p>
+            </div>
+            <div class = "stat-card">
+                <i class="fa-solid fa-circle-check stat-icon"></i>
+                <h3 class = "stat-title">Selected</h3>
+                <p class = "stat-value">{{ user.selected }}</p>
+            </div>
+            <div class = "stat-card">
+                <i class="fa-solid fa-circle-xmark stat-icon"></i>
+                <h3 class = "stat-title">Rejected</h3>
+                <p class = "stat-value">{{ user.rejected }}</p>
+            </div>
+        </div>
+
+        <!-- Application table -->
+        <div class = "application-table">
+            <h2 class = "table-heading">Your Applications</h2>
+
+            {% if applications %}
+                <table class = "table-content">
+                    <thead>
+                        <tr>
+                            <th>Company</th>
+                            <th>Position</th>
+                            <th>Date</th>
+                            <th>Deadline</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for application in applications %}
+                            <tr>
+                                <td>{{ application[1] }}</td>
+                                <td>{{ application[2] }}</td>
+                                <td>{{ application[3] }}</td>
+                                <td>{{ application[4] }}</td>
+                                <td>{{ application[5] }}</td>
+                                <td>
+                                    <div class = "action-btn">
+                                        <a href = "{{ url_for('edit_application', application_id=application[0]) }}" class = "edit-btn"><i class="fa-solid fa-pen-to-square"></i></a>
+                                        <a href = "{{ url_for('delete_application', application_id=application[0]) }}" class = "delete-btn"><i class="fa-solid fa-trash"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div class = "empty-state">
+                    <div class = "empty-icon"><i class="fa-solid fa-folder-open"></i></div>
+                    <h2>No applications yet!</h2>
+                    <p>Start tracking your job applications by adding your first application.</p>
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Reminder Section -->
+        
+        <div class = "reminder-section">
+            <h2 class = "reminder-heading">Upcoming Deadlines</h2>
+            {% for r in reminders %}
+                <div class = "reminder-cards">
+                    <h3>{{ r[1] }} - {{ r[2] }}</h3>
+                    <p>Deadline: {{ r[4] }}</p>
+
+                    {% if r[8] == 0 %}
+                        <p class = "due-today">Due Today</p>
+                    {% elif r[8] == 1 %}
+                        <p class = "due-soon">Due Tomorrow</p>
+                    {% else %}
+                        <p class = "days-left">{{ r[8] }} days left</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

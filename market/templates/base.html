@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel = "stylesheet" href = "{{ url_for('static', filename = 'css/style.css') }}"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <title>
+        {% block title %}
+
+        {% endblock %}
+    </title>
+</head>
+<body>
+    <nav class = "nav-bar">
+        <a href = "{{ url_for('home_page') }}" class = "navbar-brand">Job Tracker</a>
+        <div class = "nav-container">
+            <ul class = "navbar-list">
+                <li class = "nav-item {% if request.endpoint == 'home_page' %}active{% endif %}">
+                    <a href = "{{ url_for('home_page') }}" class = "nav-link">Home</a>
+                </li>
+                {% if session.get('user_id') %}
+                    <li class = "nav-item {% if request.endpoint == 'dashboard_page' %}active{% endif %}">
+                        <a href = "{{ url_for('dashboard_page') }}" class = "nav-link">Dashboard</a>
+                    </li>
+                    <li class = "nav-item {% if request.endpoint == 'add_application' %}active{% endif %}">
+                        <a href = "{{ url_for('add_application') }}" class = "nav-link">Add Application</a>
+                    </li>
+                    <li class = "nav-item {% if request.endpoint == 'view_applications' %}active{% endif %}">
+                        <a href = "{{ url_for('view_applications') }}" class = "nav-link">View Applications</a>
+                    </li>
+                    <li class = "nav-item {% if request.endpoint == 'logout_page' %}active{% endif %}">
+                        <a href = "{{ url_for('logout_page') }}" class = "nav-link">Logout</a>
+                    </li>
+                {% else %}
+                    <li class = "nav-item {% if request.endpoint == 'login_page' %}active{% endif %}">
+                        <a href = "{{ url_for('login_page') }}" class = "nav-link">Login</a>
+                    </li>
+                    <li class = "nav-item {% if request.endpoint == 'register_page' %}active{% endif %}">
+                        <a href = "{{ url_for('register_page') }}" class = "nav-link">Register</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav> 
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <p class = "flash-message {{ category }}">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    {% block content %}
+
+    {% endblock %}
+    
+    <script src = "{{ url_for('static', filename = 'js/script.js') }}"></script>
+</body>
+</html>

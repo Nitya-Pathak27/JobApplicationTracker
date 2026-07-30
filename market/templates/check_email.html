@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}
+    Check email
+{% endblock %}
+
+{% block content %}
+    <div class = "form-container">
+        <h1 class = "form-heading">Check your email</h1>
+        <p class = "form-text">
+            A secure password reset link has been sent to your email address.
+            Please follow the instructions in the email to regain access to your account.
+            If you cannot find the email, kindly check your spam or promotional folder.
+        </p>
+        <a href = "https://mail.google.com" target = "_blank" class = "form-text">
+            Open Email
+        </a>
+        
+        <p class = "form-text">
+            <a href = "{{ url_for('login_page') }}">BACK TO LOGIN</a>
+        </p>
+    </div>
+{% endblock %}

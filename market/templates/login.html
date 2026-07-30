@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}
+    Login
+{% endblock %}
+
+{% block content %}
+    <div class = "form-container">
+        <h1 class = "form-heading">Login</h1>
+        <p class = "form-text">Welcome back to your career dashboard.</p>
+
+        <form class = "form" method = "POST" action = "{{ url_for('login_page') }}">
+            <!-- Email Input -->
+            <div class = "form-group">
+                <label for = "email" class = "form-label">Your email</label>
+                <input type = "email" id = "email" name = "email" class = "form-input" placeholder = "E-mail">
+            </div>
+
+            <!-- Password Input -->
+            <div class = "form-group">
+                <label for = "pwd" class = "form-label">Password</label>
+                <input type = "password" id = "pwd" name = "password" class = "form-input" placeholder = "Password">
+            </div>
+
+            <!-- Forget password -->
+            <p class = "form-text">
+                <a href = "{{ url_for('forgot_password') }}" class = "form-link">Forget Password?</a>
+            </p>
+
+            <!-- Submit Button -->
+            <div class = "form-group">
+                <button type = "submit">Login</button>
+            </div>
+        </form>
+
+        <p class = "form-text">
+            Don't have an account?
+            <a href = "{{ url_for('register_page') }}">Register here</a>
+        </p>
+    </div>
+{% endblock %}
